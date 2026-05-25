@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jason Pham — Business & Data Analyst</title>
+<meta name="description" content="Jason Pham — Business & Data Analyst based in Melbourne, VIC. Expert in SQL, Power BI, Python, process analysis and BA documentation.">
+<!-- Fonts -->
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&f[]=cabinet-grotesk@700,800&display=swap" rel="stylesheet">
+<!-- Icons -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root, [data-theme="light"] {
+  --color-bg: #f7f6f2;
+  --color-surface: #f9f8f5;
+  --color-surface-2: #fbfbf9;
+  --color-surface-offset: #f0ece6;
+  --color-surface-dynamic: #e8e4de;
+  --color-divider: #dcd9d5;
+  --color-border: #d4d1ca;
+  --color-text: #28251d;
+  --color-text-muted: #6b6a65;
+  --color-text-faint: #b0afa9;
+  --color-text-inverse: #f9f8f4;
+  --color-primary: #01696f;
+  --color-primary-hover: #0c4e54;
+  --color-primary-active: #0f3638;
+  --color-primary-highlight: #cedcd8;
+  --color-accent-soft: #e8f4f4;
+  --shadow-sm: 0 1px 3px oklch(0.2 0.01 80 / 0.07);
+  --shadow-md: 0 4px 14px oklch(0.2 0.01 80 / 0.09);
+  --shadow-lg: 0 12px 36px oklch(0.2 0.01 80 / 0.13);
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+  --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem;
+  --space-12: 3rem; --space-16: 4rem; --space-20: 5rem; --space-24: 6rem;
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+  --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+  --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+  --text-hero: clamp(2.8rem, 1rem + 5.5vw, 5.5rem);
+  --font-display: 'Cabinet Grotesk', 'Georgia', serif;
+  --font-body: 'Satoshi', 'Helvetica Neue', sans-serif;
+  --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-theme="dark"] {
+  --color-bg: #171614;
+  --color-surface: #1c1b19;
+  --color-surface-2: #201f1d;
+  --color-surface-offset: #222120;
+  --color-surface-dynamic: #2d2c2a;
+  --color-divider: #262523;
+  --color-border: #393836;
+  --color-text: #cdccca;
+  --color-text-muted: #797876;
+  --color-text-faint: #5a5957;
+  --color-text-inverse: #2b2a28;
+  --color-primary: #4f98a3;
+  --color-primary-hover: #227f8b;
+  --color-primary-active: #1a626b;
+  --color-primary-highlight: #313b3b;
+  --color-accent-soft: #1a2e30;
+  --shadow-sm: 0 1px 3px oklch(0 0 0 / 0.22);
+  --shadow-md: 0 4px 14px oklch(0 0 0 / 0.32);
+  --shadow-lg: 0 12px 36px oklch(0 0 0 / 0.42);
+}
+
+/* ============================================================
+   BASE RESET
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; scroll-padding-top: 5rem; }
+body {
+  min-height: 100dvh;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.65;
+  transition: background var(--transition), color var(--transition);
+}
+img { display: block; max-width: 100%; height: auto; }
+ul { list-style: none; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
+h1,h2,h3,h4 { font-family: var(--font-display); line-height: 1.15; text-wrap: balance; }
+p { text-wrap: pretty; }
+:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; border-radius: var(--radius-sm); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+.reveal {
+  opacity: 1;
+}
+@supports (animation-timeline: scroll()) {
+  .reveal {
+    opacity: 0;
+    animation: revealFade linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+}
+@keyframes revealFade { to { opacity: 1; } }
+
+/* ============================================================
+   LAYOUT UTILITIES
+   ============================================================ */
+.container { max-width: 1100px; margin-inline: auto; padding-inline: var(--space-6); }
+.container--narrow { max-width: 780px; margin-inline: auto; padding-inline: var(--space-6); }
+.section { padding-block: clamp(var(--space-12), 8vw, var(--space-24)); }
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: oklch(from var(--color-bg) l c h / 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid oklch(from var(--color-text) l c h / 0.08);
+  transition: background var(--transition), border-color var(--transition);
+}
+.nav__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-block: var(--space-4);
+}
+.nav__logo {
+  display: flex; align-items: center; gap: var(--space-2);
+  font-family: var(--font-display); font-size: var(--text-lg); font-weight: 800;
+  color: var(--color-text);
+  transition: color var(--transition);
+}
+.nav__logo:hover { color: var(--color-primary); }
+.nav__logo-mark {
+  width: 36px; height: 36px;
+  background: var(--color-primary);
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+}
+.nav__links {
+  display: flex; align-items: center; gap: var(--space-8);
+}
+.nav__link {
+  font-size: var(--text-sm); font-weight: 500; color: var(--color-text-muted);
+  transition: color var(--transition);
+}
+.nav__link:hover { color: var(--color-text); }
+.nav__actions { display: flex; align-items: center; gap: var(--space-3); }
+.btn-theme {
+  width: 40px; height: 40px; border-radius: var(--radius-full);
+  background: var(--color-surface-offset);
+  border: 1px solid oklch(from var(--color-text) l c h / 0.1);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-text-muted); transition: all var(--transition);
+}
+.btn-theme:hover { background: var(--color-surface-dynamic); color: var(--color-text); }
+.btn-cta {
+  padding: var(--space-2) var(--space-5);
+  background: var(--color-primary); color: #fff;
+  border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600;
+  transition: all var(--transition);
+}
+.btn-cta:hover { background: var(--color-primary-hover); box-shadow: var(--shadow-md); }
+
+/* Mobile nav toggle */
+.nav__hamburger { display: none; padding: var(--space-2); color: var(--color-text); }
+@media (max-width: 768px) {
+  .nav__links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0;
+    background: var(--color-surface); padding: var(--space-6); gap: var(--space-5);
+    border-bottom: 1px solid var(--color-border); z-index: 99; }
+  .nav__links.open { display: flex; }
+  .nav__hamburger { display: block; }
+  .btn-cta { display: none; }
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  min-height: 92vh;
+  display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: var(--space-16);
+  padding-block: clamp(var(--space-16), 10vw, var(--space-24));
+  position: relative; overflow: hidden;
+}
+.hero__bg {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url('https://user-gen-media-assets.s3.amazonaws.com/gpt4o_images/bef2b19f-8452-4616-a5f9-905fd9638890.png');
+  background-size: cover; background-position: center;
+  opacity: 0.18;
+}
+[data-theme="dark"] .hero__bg { opacity: 0.08; }
+.hero__content { position: relative; z-index: 1; }
+.hero__badge {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-accent-soft);
+  border: 1px solid oklch(from var(--color-primary) l c h / 0.25);
+  border-radius: var(--radius-full); margin-bottom: var(--space-6);
+  font-size: var(--text-xs); font-weight: 600; color: var(--color-primary); letter-spacing: 0.06em; text-transform: uppercase;
+}
+.hero__badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--color-primary); animation: pulse 2.2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.35);opacity:0.7} }
+.hero__heading {
+  font-family: var(--font-display); font-size: var(--text-hero);
+  font-weight: 800; line-height: 1.05; margin-bottom: var(--space-6);
+  color: var(--color-text);
+}
+.hero__heading em { font-style: normal; color: var(--color-primary); }
+.hero__sub {
+  font-size: var(--text-lg); color: var(--color-text-muted); line-height: 1.6;
+  max-width: 52ch; margin-bottom: var(--space-8);
+}
+.hero__actions { display: flex; gap: var(--space-4); flex-wrap: wrap; }
+.btn-primary {
+  padding: var(--space-3) var(--space-8); background: var(--color-primary); color: #fff;
+  border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600;
+  transition: all var(--transition); display: inline-flex; align-items: center; gap: var(--space-2);
+}
+.btn-primary:hover { background: var(--color-primary-hover); box-shadow: var(--shadow-lg); transform: translateY(-1px); }
+.btn-secondary {
+  padding: var(--space-3) var(--space-8);
+  background: var(--color-surface); color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600;
+  transition: all var(--transition); display: inline-flex; align-items: center; gap: var(--space-2);
+}
+.btn-secondary:hover { background: var(--color-surface-offset); box-shadow: var(--shadow-md); }
+.hero__portrait {
+  position: relative; z-index: 1;
+  display: flex; justify-content: flex-end; align-items: center;
+}
+.hero__photo-wrap {
+  position: relative; width: clamp(280px, 35vw, 420px); aspect-ratio: 4/5;
+}
+.hero__photo {
+  width: 100%; height: 100%; object-fit: cover;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-lg);
+}
+.hero__photo-badge {
+  position: absolute; bottom: -var(--space-4); right: -var(--space-6);
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl); padding: var(--space-4) var(--space-5);
+  box-shadow: var(--shadow-md); display: flex; align-items: center; gap: var(--space-3);
+  bottom: var(--space-6); right: calc(-1 * var(--space-8));
+}
+.hero__photo-badge-icon { color: var(--color-primary); }
+.hero__photo-badge-text { font-size: var(--text-xs); font-weight: 600; color: var(--color-text); }
+.hero__photo-badge-sub { font-size: var(--text-xs); color: var(--color-text-muted); }
+.hero__stats {
+  display: flex; gap: var(--space-8); margin-top: var(--space-10); flex-wrap: wrap;
+}
+.hero__stat-value { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 800; color: var(--color-text); }
+.hero__stat-label { font-size: var(--text-xs); color: var(--color-text-muted); font-weight: 500; margin-top: var(--space-1); }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; gap: var(--space-12); }
+  .hero__portrait { justify-content: center; order: -1; }
+  .hero__photo-wrap { width: min(280px, 70vw); }
+  .hero__photo-badge { right: 0; bottom: var(--space-4); }
+  .hero__heading { font-size: clamp(2.2rem, 8vw, 3.5rem); }
+}
+
+/* ============================================================
+   SECTION HEADERS
+   ============================================================ */
+.section-label {
+  display: inline-block; font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--color-primary); margin-bottom: var(--space-3);
+}
+.section-heading {
+  font-family: var(--font-display); font-size: var(--text-2xl); font-weight: 800;
+  line-height: 1.1; margin-bottom: var(--space-4);
+}
+.section-sub { font-size: var(--text-base); color: var(--color-text-muted); max-width: 60ch; }
+
+/* ============================================================
+   SKILLS SECTION
+   ============================================================ */
+.skills { background: var(--color-surface); }
+.skills__grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px,100%), 1fr));
+  gap: var(--space-5); margin-top: var(--space-12);
+}
+.skill-card {
+  background: var(--color-bg); border-radius: var(--radius-xl);
+  border: 1px solid oklch(from var(--color-text) l c h / 0.09);
+  padding: var(--space-6); transition: all var(--transition);
+}
+.skill-card:hover { box-shadow: var(--shadow-md); border-color: oklch(from var(--color-primary) l c h / 0.3); transform: translateY(-2px); }
+.skill-card__icon {
+  width: 44px; height: 44px; border-radius: var(--radius-md);
+  background: var(--color-accent-soft); display: flex; align-items: center; justify-content: center;
+  color: var(--color-primary); margin-bottom: var(--space-4);
+}
+.skill-card__title { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 700; margin-bottom: var(--space-3); }
+.skill-card__tags { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
+.tag {
+  padding: var(--space-1) var(--space-3); border-radius: var(--radius-full);
+  background: var(--color-surface-offset); font-size: var(--text-xs); font-weight: 600;
+  color: var(--color-text-muted); border: 1px solid var(--color-border);
+}
+.tag--primary { background: var(--color-accent-soft); color: var(--color-primary); border-color: oklch(from var(--color-primary) l c h / 0.2); }
+
+/* ============================================================
+   EXPERIENCE TIMELINE
+   ============================================================ */
+.experience { background: var(--color-bg); }
+.timeline { margin-top: var(--space-12); display: flex; flex-direction: column; gap: var(--space-2); }
+.timeline-item {
+  display: grid; grid-template-columns: 200px 1fr;
+  gap: var(--space-8); padding: var(--space-6);
+  background: var(--color-surface); border-radius: var(--radius-xl);
+  border: 1px solid oklch(from var(--color-text) l c h / 0.08);
+  transition: all var(--transition);
+}
+.timeline-item:hover { box-shadow: var(--shadow-sm); border-color: oklch(from var(--color-primary) l c h / 0.2); }
+.timeline-date { font-size: var(--text-xs); color: var(--color-text-muted); font-weight: 600; padding-top: var(--space-1); }
+.timeline-org {
+  font-size: var(--text-xs); font-weight: 700; color: var(--color-primary);
+  text-transform: uppercase; letter-spacing: 0.06em; margin-top: var(--space-2);
+}
+.timeline-content__title { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 700; margin-bottom: var(--space-3); }
+.timeline-content__desc { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.65; margin-bottom: var(--space-4); }
+.timeline-content__bullets { display: flex; flex-direction: column; gap: var(--space-2); }
+.timeline-bullet {
+  display: flex; align-items: flex-start; gap: var(--space-3);
+  font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.55;
+}
+.timeline-bullet::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--color-primary); margin-top: 0.5em; flex-shrink: 0;
+}
+@media (max-width: 768px) {
+  .timeline-item { grid-template-columns: 1fr; gap: var(--space-2); }
+}
+
+/* ============================================================
+   PROJECTS SECTION
+   ============================================================ */
+.projects { background: var(--color-surface); }
+.projects__grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
+  gap: var(--space-6); margin-top: var(--space-12);
+}
+.project-card {
+  background: var(--color-bg); border-radius: var(--radius-xl);
+  border: 1px solid oklch(from var(--color-text) l c h / 0.09);
+  overflow: hidden; transition: all var(--transition);
+  display: flex; flex-direction: column;
+}
+.project-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.project-card__header {
+  padding: var(--space-6) var(--space-6) var(--space-4);
+  background: var(--color-surface);
+  display: flex; align-items: center; gap: var(--space-4);
+  border-bottom: 1px solid var(--color-divider);
+}
+.project-card__icon-wrap {
+  width: 48px; height: 48px; border-radius: var(--radius-lg);
+  background: var(--color-accent-soft); display: flex; align-items: center; justify-content: center;
+  color: var(--color-primary); flex-shrink: 0;
+}
+.project-card__title { font-family: var(--font-display); font-size: var(--text-base); font-weight: 700; }
+.project-card__org { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1); }
+.project-card__body { padding: var(--space-5) var(--space-6); flex: 1; }
+.project-card__desc { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.65; margin-bottom: var(--space-4); }
+.project-card__metrics {
+  display: flex; flex-wrap: wrap; gap: var(--space-3); margin-bottom: var(--space-4);
+}
+.metric {
+  display: flex; flex-direction: column; align-items: center;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-offset); border-radius: var(--radius-md);
+  text-align: center;
+}
+.metric__value { font-family: var(--font-display); font-size: var(--text-base); font-weight: 800; color: var(--color-primary); }
+.metric__label { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1); }
+.project-card__footer {
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--color-divider);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-3);
+}
+.project-card__link {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  font-size: var(--text-xs); font-weight: 600; color: var(--color-primary);
+  transition: gap var(--transition);
+}
+.project-card__link:hover { gap: var(--space-3); }
+
+/* ============================================================
+   EDUCATION + CERTS
+   ============================================================ */
+.education { background: var(--color-bg); }
+.edu-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); margin-top: var(--space-12);
+}
+.edu-card {
+  background: var(--color-surface); border-radius: var(--radius-xl);
+  border: 1px solid oklch(from var(--color-text) l c h / 0.09);
+  padding: var(--space-6); transition: all var(--transition);
+}
+.edu-card:hover { box-shadow: var(--shadow-sm); }
+.edu-card__institution { font-size: var(--text-xs); font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--space-2); }
+.edu-card__degree { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 700; margin-bottom: var(--space-2); }
+.edu-card__meta { font-size: var(--text-xs); color: var(--color-text-muted); }
+.cert-grid {
+  display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-8);
+}
+.cert-badge {
+  display: flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-surface); border: 1px solid oklch(from var(--color-primary) l c h / 0.2);
+  border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 600; color: var(--color-text);
+}
+.cert-badge i { color: var(--color-primary); }
+@media (max-width: 640px) {
+  .edu-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   CONTACT SECTION
+   ============================================================ */
+.contact { background: var(--color-surface); }
+.contact__inner {
+  max-width: 700px; margin-inline: auto; text-align: center;
+  padding-block: clamp(var(--space-16), 10vw, var(--space-24));
+}
+.contact__heading { font-family: var(--font-display); font-size: var(--text-2xl); font-weight: 800; margin-bottom: var(--space-5); }
+.contact__sub { font-size: var(--text-base); color: var(--color-text-muted); margin-bottom: var(--space-10); }
+.contact__links { display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap; }
+.contact-link {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-bg); border: 1px solid var(--color-border);
+  border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600; color: var(--color-text);
+  transition: all var(--transition);
+}
+.contact-link:hover { background: var(--color-surface-offset); box-shadow: var(--shadow-md); border-color: oklch(from var(--color-primary) l c h / 0.3); color: var(--color-primary); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  padding-block: var(--space-8);
+  border-top: 1px solid var(--color-divider);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-4);
+}
+.footer__copy { font-size: var(--text-xs); color: var(--color-text-muted); }
+
+/* ============================================================
+   DIVIDER
+   ============================================================ */
+.divider { height: 1px; background: var(--color-divider); margin-block: 0; }
+
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="container nav__inner">
+    <a href="#" class="nav__logo" aria-label="Home">
+      <div class="nav__logo-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="3" y="3" width="8" height="8" rx="1.5" fill="white" opacity="0.9"/>
+          <rect x="13" y="3" width="8" height="8" rx="1.5" fill="white" opacity="0.6"/>
+          <rect x="3" y="13" width="8" height="8" rx="1.5" fill="white" opacity="0.6"/>
+          <rect x="13" y="13" width="8" height="8" rx="1.5" fill="white" opacity="0.9"/>
+        </svg>
+      </div>
+      Jason Pham
+    </a>
+    <ul class="nav__links" id="navLinks" role="list">
+      <li><a href="#skills" class="nav__link">Skills</a></li>
+      <li><a href="#experience" class="nav__link">Experience</a></li>
+      <li><a href="#projects" class="nav__link">Projects</a></li>
+      <li><a href="#education" class="nav__link">Education</a></li>
+      <li><a href="#contact" class="nav__link">Contact</a></li>
+    </ul>
+    <div class="nav__actions">
+      <button class="btn-theme" data-theme-toggle aria-label="Switch to dark mode">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="#contact" class="btn-cta">Hire me</a>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header>
+  <div class="container">
+    <div class="hero">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="hero__content">
+        <div class="hero__badge">
+          <span class="hero__badge-dot"></span>
+          Available for roles · Melbourne, VIC
+        </div>
+        <h1 class="hero__heading">
+          Business &amp;<br><em>Data Analyst</em>
+        </h1>
+        <p class="hero__sub">
+          I turn messy data into clear decisions — through dashboards, process maps, requirements documents, and analytical models that help organisations move forward with confidence.
+        </p>
+        <div class="hero__actions">
+          <a href="#projects" class="btn-primary">
+            View my work
+            <i data-lucide="arrow-right" width="16" height="16"></i>
+          </a>
+          <a href="mailto:jasonpham808@gmail.com" class="btn-secondary">
+            <i data-lucide="mail" width="16" height="16"></i>
+            Get in touch
+          </a>
+        </div>
+        <div class="hero__stats">
+          <div>
+            <div class="hero__stat-value">233K+</div>
+            <div class="hero__stat-label">Records managed (World Vision)</div>
+          </div>
+          <div>
+            <div class="hero__stat-value">4+</div>
+            <div class="hero__stat-label">BI dashboards delivered</div>
+          </div>
+          <div>
+            <div class="hero__stat-value">ECBA</div>
+            <div class="hero__stat-label">IIBA certified</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero__portrait">
+        <div class="hero__photo-wrap">
+          <img
+            src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/ec030c52-0fbf-4bc4-85c9-81f60fc66a28"
+            alt="Jason Pham — Business and Data Analyst, Melbourne"
+            class="hero__photo" style="object-position: center top;"
+            width="420" height="525" loading="eager">
+          <div class="hero__photo-badge">
+            <div class="hero__photo-badge-icon"><i data-lucide="graduation-cap" width="20" height="20"></i></div>
+            <div>
+              <div class="hero__photo-badge-text">M. Business Analytics</div>
+              <div class="hero__photo-badge-sub">Deakin University · WAM 77</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- SKILLS -->
+<section class="section skills" id="skills" aria-label="Skills">
+  <div class="container">
+    <span class="section-label reveal">Core Expertise</span>
+    <h2 class="section-heading reveal">What I bring to the table</h2>
+    <p class="section-sub reveal">From business analysis and requirements documentation to advanced data modelling and interactive dashboards.</p>
+    <div class="skills__grid">
+
+      <div class="skill-card reveal">
+        <div class="skill-card__icon"><i data-lucide="git-branch" width="22" height="22"></i></div>
+        <h3 class="skill-card__title">Business Analysis</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;">Process mapping (as-is/to-be), requirements elicitation, stakeholder workshops, business cases, and BPMN documentation aligned to BABOK v3 / BACCM.</p>
+        <div class="skill-card__tags">
+          <span class="tag tag--primary">BPMN / UML</span>
+          <span class="tag tag--primary">BABOK</span>
+          <span class="tag">ECBA Certified</span>
+          <span class="tag">User Stories</span>
+          <span class="tag">BRD / FRD</span>
+          <span class="tag">Stakeholder Mgmt</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card__icon"><i data-lucide="bar-chart-2" width="22" height="22"></i></div>
+        <h3 class="skill-card__title">BI & Data Visualisation</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;">Building interactive Power BI and Tableau dashboards with DAX measures, KPI frameworks, and semantic data models that drive operational decisions.</p>
+        <div class="skill-card__tags">
+          <span class="tag tag--primary">Power BI</span>
+          <span class="tag tag--primary">DAX</span>
+          <span class="tag">Tableau</span>
+          <span class="tag">Excel / Power Query</span>
+          <span class="tag">Data Storytelling</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card__icon"><i data-lucide="database" width="22" height="22"></i></div>
+        <h3 class="skill-card__title">SQL & Data Modelling</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;">Complex SQL queries, relational and dimensional modelling, 3NF normalisation, ERD design, and ETL workflows. Experienced with large-scale datasets up to 233K+ records.</p>
+        <div class="skill-card__tags">
+          <span class="tag tag--primary">MySQL / SQL</span>
+          <span class="tag">ERD Design</span>
+          <span class="tag">3NF Normalisation</span>
+          <span class="tag">ETL Workflows</span>
+          <span class="tag">Data Quality</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card__icon"><i data-lucide="cpu" width="22" height="22"></i></div>
+        <h3 class="skill-card__title">Advanced Analytics</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;">Python-based predictive modelling, time-series forecasting (LSTM, ANN), machine learning pipelines, and financial scenario modelling.</p>
+        <div class="skill-card__tags">
+          <span class="tag tag--primary">Python</span>
+          <span class="tag">LSTM / ANN</span>
+          <span class="tag">RapidMiner</span>
+          <span class="tag">Pandas / Scikit-learn</span>
+          <span class="tag">Financial Modelling</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card__icon"><i data-lucide="users" width="22" height="22"></i></div>
+        <h3 class="skill-card__title">Stakeholder Engagement</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;">Facilitation of workshops, requirements interviews, executive reporting, and cross-functional coordination across operations, finance, and marketing teams.</p>
+        <div class="skill-card__tags">
+          <span class="tag">Workshop Facilitation</span>
+          <span class="tag">Requirements Elicitation</span>
+          <span class="tag">Executive Reporting</span>
+          <span class="tag">Change Management</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card__icon"><i data-lucide="cloud" width="22" height="22"></i></div>
+        <h3 class="skill-card__title">Cloud & Tools</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6;">Microsoft Azure (AI-900), Google Cloud fundamentals, SQL Server, and experience working with enterprise data tools and BI infrastructure.</p>
+        <div class="skill-card__tags">
+          <span class="tag tag--primary">Azure AI-900</span>
+          <span class="tag">Google Analytics</span>
+          <span class="tag">JIRA / Confluence</span>
+          <span class="tag">Microsoft 365</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section experience" id="experience" aria-label="Experience">
+  <div class="container">
+    <span class="section-label reveal">Career</span>
+    <h2 class="section-heading reveal">Work Experience</h2>
+    <p class="section-sub reveal">Real-world BA and analytics work across non-profit, marketing, education and research sectors.</p>
+
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div>
+          <div class="timeline-date">Jul 2025 – Oct 2025</div>
+          <div class="timeline-org">World Vision Australia</div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-content__title">Business &amp; Process Projects Coordinator</div>
+          <div class="timeline-content__bullets">
+            <div class="timeline-bullet">Mapped current-state and future-state business processes using BPMN/UML; facilitated stakeholder workshops to elicit and validate requirements across operations, marketing and management.</div>
+            <div class="timeline-bullet">Designed and maintained a KPI reporting framework across a 233,000+ record CRM database — engineering composite SQL joins, building Tableau dashboards, and reducing median donor lapse by 15 days.</div>
+            <div class="timeline-bullet">Produced governance documentation including decision logs, risk registers, action tracking and process maps, supporting project delivery and change management.</div>
+          </div>
+          <div class="skill-card__tags" style="margin-top:var(--space-4)">
+            <span class="tag">BPMN / UML</span><span class="tag">Tableau</span><span class="tag">MySQL</span><span class="tag">Python</span><span class="tag">Requirements Elicitation</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div>
+          <div class="timeline-date">Sep 2023 – Feb 2024</div>
+          <div class="timeline-org">DATA VIET., JSC</div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-content__title">Marketing Analyst Intern</div>
+          <div class="timeline-content__bullets">
+            <div class="timeline-bullet">Built Power BI dashboards for recurring weekly and monthly KPI reporting, using DAX measures and data modelling logic to track customer and business performance for commercial leadership.</div>
+            <div class="timeline-bullet">Managed end-to-end reporting pipelines — extracted, cleansed and validated 220,000+ records in SQL and Excel to ensure data accuracy and dashboard reliability.</div>
+            <div class="timeline-bullet">Gathered stakeholder requirements, refined reporting solutions, and contributed to process improvements that strengthened data consistency.</div>
+          </div>
+          <div class="skill-card__tags" style="margin-top:var(--space-4)">
+            <span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">SQL</span><span class="tag">Excel</span><span class="tag">Stakeholder Reporting</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div>
+          <div class="timeline-date">Feb 2022 – Feb 2023</div>
+          <div class="timeline-org">RMIT Vietnam</div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-content__title">External Affairs Specialist</div>
+          <div class="timeline-content__bullets">
+            <div class="timeline-bullet">Managed multi-stakeholder engagement across fundraising campaigns and events, producing data-driven insights that supported strategic decisions and raised approximately AUD 122,000.</div>
+            <div class="timeline-bullet">Coordinated sponsor account data and communication workflows for 500+ attendee events, maintaining accurate stakeholder records across multiple concurrent projects.</div>
+          </div>
+          <div class="skill-card__tags" style="margin-top:var(--space-4)">
+            <span class="tag">Stakeholder Mgmt</span><span class="tag">Campaign Analytics</span><span class="tag">Excel</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section projects" id="projects" aria-label="Projects">
+  <div class="container">
+    <span class="section-label reveal">Portfolio</span>
+    <h2 class="section-heading reveal">Selected Projects</h2>
+    <p class="section-sub reveal">From financial dashboards to predictive forecasting models — real analytical work with real outcomes.</p>
+
+    <div class="projects__grid">
+
+      <div class="project-card reveal">
+        <div class="project-card__header">
+          <div class="project-card__icon-wrap"><i data-lucide="shopping-cart" width="24" height="24"></i></div>
+          <div>
+            <div class="project-card__title">Amazon Sales &amp; Fulfilment Dashboard</div>
+            <div class="project-card__org">Power BI · SQL · DAX · Excel</div>
+          </div>
+        </div>
+        <div class="project-card__body">
+          <p class="project-card__desc">End-to-end Power BI reporting solution analysing eCommerce performance across product categories, regions and fulfilment channels — surfacing operational gaps and revenue drivers for decision-makers.</p>
+          <div class="project-card__metrics">
+            <div class="metric"><div class="metric__value">$78.6M</div><div class="metric__label">Revenue analysed</div></div>
+            <div class="metric"><div class="metric__value">120K</div><div class="metric__label">Orders tracked</div></div>
+            <div class="metric"><div class="metric__value">116K</div><div class="metric__label">Units across SKUs</div></div>
+          </div>
+          <div class="skill-card__tags">
+            <span class="tag tag--primary">Power BI</span><span class="tag">DAX</span><span class="tag">SQL</span><span class="tag">BI Dashboard</span>
+          </div>
+        </div>
+        <div class="project-card__footer">
+          <a href="https://github.com/JasonPham808/Amazon-Sale-Dashboard-by-Power-BI-" target="_blank" rel="noopener noreferrer" class="project-card__link">
+            View on GitHub <i data-lucide="arrow-right" width="14" height="14"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-card__header">
+          <div class="project-card__icon-wrap"><i data-lucide="heart-pulse" width="24" height="24"></i></div>
+          <div>
+            <div class="project-card__title">World Vision Donor Analytics</div>
+            <div class="project-card__org">Python · MySQL · Tableau · RFM</div>
+          </div>
+        </div>
+        <div class="project-card__body">
+          <p class="project-card__desc">Engineered an RFM-based segmentation and KPI framework across a 233,000-record CRM database, with composite SQL joins and Tableau dashboards that reduced median donor lapse time by 15 days.</p>
+          <div class="project-card__metrics">
+            <div class="metric"><div class="metric__value">233K</div><div class="metric__label">Records managed</div></div>
+            <div class="metric"><div class="metric__value">−15 days</div><div class="metric__label">Donor lapse reduction</div></div>
+          </div>
+          <div class="skill-card__tags">
+            <span class="tag tag--primary">Tableau</span><span class="tag">MySQL</span><span class="tag">Python</span><span class="tag">RFM Segmentation</span>
+          </div>
+        </div>
+        <div class="project-card__footer">
+          <a href="https://canva.link/7gtpy9j04j9xhq7" target="_blank" rel="noopener noreferrer" class="project-card__link">
+            View Report <i data-lucide="arrow-right" width="14" height="14"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-card__header">
+          <div class="project-card__icon-wrap"><i data-lucide="wind" width="24" height="24"></i></div>
+          <div>
+            <div class="project-card__title">PM2.5 Air Quality Forecasting</div>
+            <div class="project-card__org">Python · LSTM · Time-Series</div>
+          </div>
+        </div>
+        <div class="project-card__body">
+          <p class="project-card__desc">Built a 3-layer LSTM deep learning model on 35,000 hourly multivariate time-series records, forecasting PM2.5 concentrations 24 hours ahead with MAE of 0.04 — demonstrating advanced predictive modelling.</p>
+          <div class="project-card__metrics">
+            <div class="metric"><div class="metric__value">35K</div><div class="metric__label">Hourly records</div></div>
+            <div class="metric"><div class="metric__value">MAE 0.04</div><div class="metric__label">Forecast accuracy</div></div>
+          </div>
+          <div class="skill-card__tags">
+            <span class="tag tag--primary">LSTM</span><span class="tag">Python</span><span class="tag">Time-Series</span><span class="tag">Predictive Modelling</span>
+          </div>
+        </div>
+        <div class="project-card__footer">
+          <a href="https://github.com/JasonPham808" target="_blank" rel="noopener noreferrer" class="project-card__link">
+            View on GitHub <i data-lucide="arrow-right" width="14" height="14"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-card__header">
+          <div class="project-card__icon-wrap"><i data-lucide="sun" width="24" height="24"></i></div>
+          <div>
+            <div class="project-card__title">Solar Power Output Forecasting</div>
+            <div class="project-card__org">Python · MLR · ANN</div>
+          </div>
+        </div>
+        <div class="project-card__body">
+          <p class="project-card__desc">Developed MLR and ANN models on 92,000 solar generation records for power output forecasting, achieving a 30% error reduction (MAE 420→290, R²=0.88) — directly relevant to energy analytics.</p>
+          <div class="project-card__metrics">
+            <div class="metric"><div class="metric__value">92K</div><div class="metric__label">Records modelled</div></div>
+            <div class="metric"><div class="metric__value">R²=0.88</div><div class="metric__label">Model accuracy</div></div>
+            <div class="metric"><div class="metric__value">−30%</div><div class="metric__label">Error reduction</div></div>
+          </div>
+          <div class="skill-card__tags">
+            <span class="tag tag--primary">ANN</span><span class="tag">MLR</span><span class="tag">Python</span><span class="tag">Energy Analytics</span>
+          </div>
+        </div>
+        <div class="project-card__footer">
+          <a href="https://github.com/JasonPham808" target="_blank" rel="noopener noreferrer" class="project-card__link">
+            View on GitHub <i data-lucide="arrow-right" width="14" height="14"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-card__header">
+          <div class="project-card__icon-wrap"><i data-lucide="shield" width="24" height="24"></i></div>
+          <div>
+            <div class="project-card__title">AAMI Insurance Operations Database</div>
+            <div class="project-card__org">MySQL · PHP · 3NF · ERD</div>
+          </div>
+        </div>
+        <div class="project-card__body">
+          <p class="project-card__desc">Designed a 3NF relational data model and ERD structure for customer, policy and claims workflows — demonstrating strong data modelling, requirements-to-schema translation, and BA-to-technical delivery skills.</p>
+          <div class="skill-card__tags">
+            <span class="tag tag--primary">3NF Modelling</span><span class="tag">ERD</span><span class="tag">MySQL</span><span class="tag">PHP</span><span class="tag">Data Architecture</span>
+          </div>
+        </div>
+        <div class="project-card__footer">
+          <a href="https://github.com/JasonPham808" target="_blank" rel="noopener noreferrer" class="project-card__link">
+            View on GitHub <i data-lucide="arrow-right" width="14" height="14"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-card__header">
+          <div class="project-card__icon-wrap"><i data-lucide="plane" width="24" height="24"></i></div>
+          <div>
+            <div class="project-card__title">Airline Satisfaction Prediction</div>
+            <div class="project-card__org">RapidMiner · Ensemble Modelling</div>
+          </div>
+        </div>
+        <div class="project-card__body">
+          <p class="project-card__desc">Designed a predictive analytics pipeline using a Voting Ensemble model to classify airline traveller satisfaction, achieving 91.8% accuracy — demonstrating end-to-end ML model design and evaluation.</p>
+          <div class="project-card__metrics">
+            <div class="metric"><div class="metric__value">91.8%</div><div class="metric__label">Model accuracy</div></div>
+          </div>
+          <div class="skill-card__tags">
+            <span class="tag tag--primary">RapidMiner</span><span class="tag">Ensemble Methods</span><span class="tag">Classification</span>
+          </div>
+        </div>
+        <div class="project-card__footer">
+          <a href="https://github.com/JasonPham808" target="_blank" rel="noopener noreferrer" class="project-card__link">
+            View on GitHub <i data-lucide="arrow-right" width="14" height="14"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="section education" id="education" aria-label="Education">
+  <div class="container">
+    <span class="section-label reveal">Academic Background</span>
+    <h2 class="section-heading reveal">Education &amp; Certifications</h2>
+
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-card__institution">Deakin University · Melbourne</div>
+        <div class="edu-card__degree">Master of Business Analytics</div>
+        <div class="edu-card__meta">WAM 77 · 2024 – Present</div>
+        <div style="margin-top:var(--space-4);font-size:var(--text-sm);color:var(--color-text-muted);">Business intelligence, database design, data visualisation, predictive analytics, digital transformation.</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-card__institution">RMIT University · Hanoi</div>
+        <div class="edu-card__degree">Bachelor of Business Administration</div>
+        <div class="edu-card__meta">GPA 2.8 · 2019 – 2023</div>
+        <div style="margin-top:var(--space-4);font-size:var(--text-sm);color:var(--color-text-muted);">Marketing, operations, strategic management, business analysis, financial literacy.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:var(--space-10);">
+      <h3 style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;margin-bottom:var(--space-5);" class="reveal">Certifications</h3>
+      <div class="cert-grid reveal">
+        <div class="cert-badge"><i data-lucide="award" width="14" height="14"></i> ECBA — IIBA</div>
+        <div class="cert-badge"><i data-lucide="award" width="14" height="14"></i> Power BI Advanced</div>
+        <div class="cert-badge"><i data-lucide="award" width="14" height="14"></i> Azure AI-900</div>
+        <div class="cert-badge"><i data-lucide="award" width="14" height="14"></i> Google Advanced Analytics</div>
+        <div class="cert-badge"><i data-lucide="award" width="14" height="14"></i> ISC2</div>
+        <div class="cert-badge"><i data-lucide="globe" width="14" height="14"></i> IELTS 7.0</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact" id="contact" aria-label="Contact">
+  <div class="contact__inner container--narrow">
+    <span class="section-label reveal">Let's talk</span>
+    <h2 class="contact__heading reveal">Open to BA &amp; DA opportunities in Melbourne</h2>
+    <p class="contact__sub reveal">Whether you have a role, a project, or just want to connect — I'd love to hear from you.</p>
+    <div class="contact__links reveal">
+      <a href="mailto:jasonpham808@gmail.com" class="contact-link">
+        <i data-lucide="mail" width="16" height="16"></i> jasonpham808@gmail.com
+      </a>
+      <a href="https://linkedin.com/in/jasonpham808" target="_blank" rel="noopener noreferrer" class="contact-link">
+        <i data-lucide="linkedin" width="16" height="16"></i> linkedin.com/in/jasonpham808
+      </a>
+      <a href="https://github.com/JasonPham808" target="_blank" rel="noopener noreferrer" class="contact-link">
+        <i data-lucide="github" width="16" height="16"></i> GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container footer">
+    <p class="footer__copy">© 2026 Huy Hung (Jason) Pham · Melbourne, VIC · Full Australian work rights</p>
+    <div style="display:flex;gap:var(--space-4);">
+      <a href="mailto:jasonpham808@gmail.com" style="color:var(--color-text-muted);transition:color var(--transition);" aria-label="Email">
+        <i data-lucide="mail" width="18" height="18"></i>
+      </a>
+      <a href="https://linkedin.com/in/jasonpham808" target="_blank" rel="noopener noreferrer" style="color:var(--color-text-muted);transition:color var(--transition);" aria-label="LinkedIn">
+        <i data-lucide="linkedin" width="18" height="18"></i>
+      </a>
+      <a href="https://github.com/JasonPham808" target="_blank" rel="noopener noreferrer" style="color:var(--color-text-muted);transition:color var(--transition);" aria-label="GitHub">
+        <i data-lucide="github" width="18" height="18"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Dark mode toggle
+(function(){
+  const toggle = document.querySelector('[data-theme-toggle]');
+  const html = document.documentElement;
+  let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  html.setAttribute('data-theme', theme);
+  function updateIcon() {
+    if(!toggle) return;
+    toggle.innerHTML = theme === 'dark'
+      ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+      : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+    toggle.setAttribute('aria-label', 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode');
+  }
+  updateIcon();
+  if(toggle) toggle.addEventListener('click', () => {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', theme);
+    updateIcon();
+  });
+})();
+
+// Mobile nav
+(function(){
+  const btn = document.getElementById('hamburger');
+  const links = document.getElementById('navLinks');
+  if(!btn || !links) return;
+  btn.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    links.classList.remove('open');
+    btn.setAttribute('aria-expanded', false);
+  }));
+})();
+
+// Init Lucide icons
+lucide.createIcons();
+</script>
+</body>
+</html>
